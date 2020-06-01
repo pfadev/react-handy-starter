@@ -1,0 +1,20 @@
+{
+  "name": "react-handy-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pfadev/react-handy-starter.git"
+  },
+  "keywords": [],
+  "author": "Parham Fazlali",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pfadev/react-handy-starter/issues"
+  },
+  "homepage": "https://github.com/pfadev/react-handy-starter#readme"
+}

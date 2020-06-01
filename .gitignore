@@ -1,0 +1,14 @@
+Thumbs.db
+__MACOSX
+.DS_Store
+
+*.lock
+*.log
+
+node_modules
+
+.idea
+.history
+.vscode
+.yarn
+.yarnrc.yml
