@@ -9,6 +9,7 @@ node_modules
 
 .idea
 .history
+.pnp.js
 .vscode
 .yarn
 .yarnrc.yml

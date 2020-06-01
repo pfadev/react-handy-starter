@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/pfadev/react-handy-starter/issues"
   },
-  "homepage": "https://github.com/pfadev/react-handy-starter#readme"
+  "homepage": "https://github.com/pfadev/react-handy-starter#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
