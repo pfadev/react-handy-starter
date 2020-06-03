@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
     "clean": "rimraf ./dist",
-    "dev": "webpack --progress --hide-modules --config config/webpack.config.js --mode development",
+    "dev": "ts-node --files .",
     "start": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,8 +24,12 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@types/node": "^14.0.9",
     "babel-loader": "^8.1.0",
+    "express": "^4.17.1",
     "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   }

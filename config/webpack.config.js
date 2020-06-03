@@ -4,6 +4,7 @@ module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
 
   return {
+    devtool: isDev ? 'eval-source-map' : false,
     entry: './src/index.js',
     module: {
       rules: [
@@ -11,17 +12,17 @@ module.exports = (env, argv) => {
           test: /\.(j|t)s(x)$/,
           exclude: /node_modules/,
           use: {
-              loader: require.resolve('babel-loader'),
-              options: {
-                presets: ['@babel/preset-env'],
-                cacheDirectory: isDev,
-              }
+            loader: require.resolve('babel-loader'),
+            options: {
+              presets: ['@babel/preset-env'],
+              cacheDirectory: isDev,
             }
-        }
+          }
+        },
       ]
     },
     output: {
-      filename: isDev ? "[name].js" : "[name].[chunkhash:8].js",
+      filename: isDev ? "[name].js" : "[name].[hash:8].js",
       path: path.resolve(process.cwd(), 'dist'),
     },
     resolve: {
