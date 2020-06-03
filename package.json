@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --hide-modules --config config/webpack.prod.js",
+    "build": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
+    "dev": "webpack --progress --hide-modules --config config/webpack.config.js --mode development",
+    "start": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +21,10 @@
   },
   "homepage": "https://github.com/pfadev/react-handy-starter#readme",
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-cli": "^3.3.11"
   }
 }
