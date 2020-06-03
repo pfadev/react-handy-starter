@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
+    "build": "webpack --progress --hide-modules --mode production",
     "clean": "rimraf ./dist",
     "dev": "ts-node --files .",
-    "start": "webpack --progress --hide-modules --config config/webpack.config.js --mode production",
+    "start": "webpack --progress --hide-modules --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@types/express": "^4.17.6",
     "@types/node": "^14.0.9",
     "babel-loader": "^8.1.0",
     "express": "^4.17.1",
