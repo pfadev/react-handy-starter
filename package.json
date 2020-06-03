@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack --progress --hide-modules --mode production",
     "clean": "rimraf ./dist",
-    "dev": "ts-node --files .",
-    "start": "webpack --progress --hide-modules --mode production",
+    "dev": "nodemon --exec ts-node --files .",
+    "start": "ts-node --transpile-only --files .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "@types/node": "^14.0.9",
     "babel-loader": "^8.1.0",
     "express": "^4.17.1",
+    "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.3",
