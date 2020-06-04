@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
 
   return {
     devtool: isDev ? 'eval-source-map' : false,
-    entry: './src/index.js',
+    entry: './src/client.tsx',
     module: {
       rules: [
         {
