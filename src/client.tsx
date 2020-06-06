@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(
+module.hot ? ReactDOM.render : ReactDOM.hydrate(
   <div>
     Hello World!
   </div>,
