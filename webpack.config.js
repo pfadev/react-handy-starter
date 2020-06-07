@@ -1,12 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
+const LoadablePlugin = require('@loadable/webpack-plugin')
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 const isDev = mode === 'development';
 
 const loadPlugins = () => {
-  const plugins = [];
+  const plugins = [
+    new LoadablePlugin()
+  ];
 
   if (isDev) {
     plugins.push(
