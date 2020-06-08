@@ -8,7 +8,10 @@ const isDev = mode === 'development';
 
 const loadPlugins = () => {
   const plugins = [
-    new LoadablePlugin()
+    new LoadablePlugin({
+      writeToDisk: true,
+      filename: "./loadable-stats.json",
+    })
   ];
 
   if (isDev) {

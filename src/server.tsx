@@ -1,10 +1,10 @@
+import path from 'path';
 import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 
 import html from './helpers/html';
-
-const content = renderToString(<div>Hello World!</div>)
 
 const app = express();
 
@@ -34,7 +34,17 @@ if (__DEV__) {
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.get('*', (req, res) => res.send(html(content)));
+const statsFile = path.resolve('./dist/loadable-stats.json');
+
+const extractor = new ChunkExtractor({ statsFile });
+
+const content = renderToString(
+  <ChunkExtractorManager extractor={extractor}>
+    <div>Hello World!</div>
+  </ChunkExtractorManager>
+);
+
+app.get('*', (req, res) => res.send(html(content, extractor)));
 
 app.listen(3000, 'localhost', (err) => {
   if (err) console.error(err);

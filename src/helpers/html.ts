@@ -1,15 +1,16 @@
-export default (content: string) => {
+export default (content: string, extractor: Record<string, any>) => {
   const html = `
     <!doctype html>
     <html>
       <head>
-
+        ${extractor.getLinkTags()}
+        ${extractor.getStyleTags()}
       </head>
 
       <body>
         <div id="react-view">${content}</div>
 
-        <script src="main.js"></script>
+        ${extractor.getScriptTags()}
       </body>
     </html>
   `;

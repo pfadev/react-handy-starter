@@ -6,7 +6,7 @@
   "scripts": {
     "build": "yarn clean && NODE_ENV=production webpack --progress --hide-modules",
     "clean": "rimraf ./dist",
-    "dev": "NODE_ENV=development nodemon --exec ts-node --files .",
+    "dev": "NODE_ENV=development nodemon --watch src --exec ts-node --files .",
     "start": "NODE_ENV=production ts-node --transpile-only --files .",
     "test": "NODE_ENV=test echo \"Error: no test specified\" && exit 1"
   },
