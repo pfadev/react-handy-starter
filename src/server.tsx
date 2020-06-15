@@ -2,9 +2,12 @@ import path from 'path';
 import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
-import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import { StaticRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 
 import html from './helpers/html';
+import routes from './routes';
 
 const app = express();
 
@@ -36,15 +39,20 @@ if (__DEV__) {
 
 const statsFile = path.resolve('./dist/loadable-stats.json');
 
-const extractor = new ChunkExtractor({ statsFile });
+app.get('*', (req, res) => {
+  const extractor = new ChunkExtractor({ statsFile });
+  const staticContext: Record<string, any> = {};
 
-const content = renderToString(
-  <ChunkExtractorManager extractor={extractor}>
-    <div>Hello World!</div>
-  </ChunkExtractorManager>
-);
+  const content = renderToString(
+    <ChunkExtractorManager extractor={extractor}>
+      <StaticRouter location={req.path} context={staticContext}>
+        {renderRoutes(routes)}
+      </StaticRouter>
+    </ChunkExtractorManager>
+  );
 
-app.get('*', (req, res) => res.send(html(content, extractor)));
+  res.send(html(content, extractor))
+});
 
 app.listen(3000, 'localhost', (err) => {
   if (err) console.error(err);
