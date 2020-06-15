@@ -1,4 +1,4 @@
-export default (content: string, extractor: Record<string, any>) => {
+export default (content : string, extractor: Record<string, any>) : string => {
   const html = `
     <!doctype html>
     <html>
@@ -16,4 +16,4 @@ export default (content: string, extractor: Record<string, any>) => {
   `;
 
   return html;
-}
+};

@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.static('./dist'));
 
-if (__DEV__) {
+if (DEV) {
   /* Run express as webpack dev server */
   const webpack = require('webpack');
   const webpackConfig = require('../webpack.config.js');
@@ -41,17 +41,17 @@ const statsFile = path.resolve('./dist/loadable-stats.json');
 
 app.get('*', (req, res) => {
   const extractor = new ChunkExtractor({ statsFile });
-  const staticContext: Record<string, any> = {};
+  const staticContext = {};
 
   const content = renderToString(
     <ChunkExtractorManager extractor={extractor}>
       <StaticRouter location={req.path} context={staticContext}>
         {renderRoutes(routes)}
       </StaticRouter>
-    </ChunkExtractorManager>
+    </ChunkExtractorManager>,
   );
 
-  res.send(html(content, extractor))
+  res.send(html(content, extractor));
 });
 
 app.listen(3000, 'localhost', (err) => {

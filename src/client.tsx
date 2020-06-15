@@ -4,14 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { loadableReady } from '@loadable/component';
 
-const hot = (module as any).hot;
+const { hot } = module as any;
 
 const render = (routes: Array<any>) => (
   (hot ? ReactDOM.hydrate : ReactDOM.render)(
     <BrowserRouter>
       {renderRoutes(routes)}
     </BrowserRouter>,
-    document.getElementById('react-view')
+    document.getElementById('react-view'),
   )
 );
 
