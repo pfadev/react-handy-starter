@@ -1,4 +1,4 @@
-export default (content : string, extractor: Record<string, any>) : string => {
+export default (content: string, extractor: Record<string, any>): string => {
   const html = `
     <!doctype html>
     <html>

@@ -1,8 +1,8 @@
-import pages from './pages';
+import pages from "./pages";
 
 export default [
   {
-    path: '/',
+    path: "/",
     exact: true,
     component: pages.Home,
   },

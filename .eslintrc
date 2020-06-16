@@ -2,7 +2,9 @@
   "extends": [
     "airbnb",
     "airbnb/hooks",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "ignorePatterns": [
     "dist",
@@ -13,7 +15,8 @@
   },
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
@@ -31,6 +34,7 @@
       }
     ],
     "no-console": "off",
+    "prettier/prettier": "error",
     "react/jsx-filename-extension": [
       "error",
       {
