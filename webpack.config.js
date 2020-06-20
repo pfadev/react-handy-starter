@@ -41,6 +41,10 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.js$/,
+        loader: require.resolve("babel-loader"),
+      },
     ]
   },
   output: {

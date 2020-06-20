@@ -3,5 +3,8 @@
     "esModuleInterop": true,
     "jsx": "react",
     "module": "commonjs"
-  }
+  },
+  "exclude": [
+    "./node_modules/**/*"
+  ]
 }
