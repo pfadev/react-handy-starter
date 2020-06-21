@@ -5,6 +5,7 @@ import { renderToString } from "react-dom/server";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 import html from "./helpers/html";
 import routes from "./routes";
@@ -42,16 +43,25 @@ const statsFile = path.resolve("./dist/loadable-stats.json");
 app.get("*", (req, res) => {
   const extractor = new ChunkExtractor({ statsFile });
   const staticContext = {};
+  const sheet = new ServerStyleSheet();
 
-  const content = renderToString(
-    <ChunkExtractorManager extractor={extractor}>
-      <StaticRouter location={req.path} context={staticContext}>
-        {renderRoutes(routes)}
-      </StaticRouter>
-    </ChunkExtractorManager>
-  );
+  try {
+    const content = renderToString(
+      <ChunkExtractorManager extractor={extractor}>
+        <StaticRouter location={req.path} context={staticContext}>
+          <StyleSheetManager sheet={sheet.instance}>
+            {renderRoutes(routes)}
+          </StyleSheetManager>
+        </StaticRouter>
+      </ChunkExtractorManager>
+    );
 
-  res.send(html(content, extractor));
+    res.send(html(content, extractor));
+  } catch (error) {
+    console.error(error)
+  } finally {
+    sheet.seal();
+  }
 });
 
 app.listen(3000, "localhost", (err) => {

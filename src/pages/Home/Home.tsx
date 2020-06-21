@@ -1,7 +1,9 @@
 import React from "react";
 
-export default (): JSX.Element => (
-  <div>
+import StyleWrapper from './home.style';
+
+export default () => (
+  <StyleWrapper>
     <h1>Home</h1>
-  </div>
+  </StyleWrapper>
 );
