@@ -4,7 +4,5 @@ import { renderRoutes } from "react-router-config";
 import StyleWrapper from "./app.style";
 
 export default ({ route }: any) => (
-  <StyleWrapper>
-    {renderRoutes(route.routes)}
-  </StyleWrapper>
+  <StyleWrapper>{renderRoutes(route.routes)}</StyleWrapper>
 );

@@ -13,6 +13,6 @@ export default [
       {
         component: pages.NotFound,
       },
-    ]
+    ],
   },
 ];

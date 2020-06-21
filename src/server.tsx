@@ -5,7 +5,7 @@ import { renderToString } from "react-dom/server";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import html from "./helpers/html";
 import routes from "./routes";
@@ -58,7 +58,7 @@ app.get("*", (req, res) => {
 
     res.send(html(content, extractor));
   } catch (error) {
-    console.error(error)
+    console.error(error);
   } finally {
     sheet.seal();
   }

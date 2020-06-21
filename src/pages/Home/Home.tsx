@@ -1,6 +1,6 @@
 import React from "react";
 
-import StyleWrapper from './home.style';
+import StyleWrapper from "./home.style";
 
 export default () => (
   <StyleWrapper>
