@@ -26,7 +26,7 @@ const loadPlugins = () => {
 
 module.exports = {
   devtool: isDev ? 'eval-source-map' : false,
-  entry: (isDev ? ['webpack-hot-middleware/client', './src/client.tsx'] : ['./src/client.tsx']),
+  entry: (isDev ? ['webpack-hot-middleware/client?reload=true', './src/client.tsx'] : ['./src/client.tsx']),
   mode,
   module: {
     rules: [
@@ -43,6 +43,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
     ]
