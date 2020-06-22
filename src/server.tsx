@@ -7,6 +7,7 @@ import { StaticRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
+import config from "./config";
 import html from "./helpers/html";
 import routes from "./routes";
 
@@ -64,6 +65,7 @@ app.get("*", (req, res) => {
   }
 });
 
-app.listen(3000, "localhost", (err) => {
+// @ts-ignore
+app.listen(config.port, config.host, (err: any) => {
   if (err) console.error(err);
 });
