@@ -7,7 +7,7 @@ import { loadableReady } from "@loadable/component";
 const { hot } = module as any;
 
 const render = (routes: Array<any>) =>
-  (hot ? ReactDOM.hydrate : ReactDOM.render)(
+  (hot ? ReactDOM.render : ReactDOM.hydrate)(
     <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>,
     document.getElementById("react-view")
   );
