@@ -1,6 +1,9 @@
 import path from "path";
 import React from "react";
 import express from "express";
+import compression from "compression";
+import helmet from "helmet";
+import hpp from "hpp";
 import { renderToString } from "react-dom/server";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
@@ -13,7 +16,16 @@ import routes from "./routes";
 
 const app = express();
 
+app.use(compression());
+app.use(helmet());
+app.use(hpp());
+
 app.use(express.static("./dist"));
+
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send("User-agent: *");
+});
 
 if (DEV) {
   /* Run express as webpack dev server */

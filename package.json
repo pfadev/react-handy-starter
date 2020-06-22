@@ -30,8 +30,11 @@
   "dependencies": {
     "@loadable/component": "^5.12.0",
     "@loadable/server": "^5.12.0",
+    "compression": "^1.7.4",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "helmet": "^3.23.1",
+    "hpp": "^0.2.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
