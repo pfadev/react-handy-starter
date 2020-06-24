@@ -1,5 +1,6 @@
 import path from "path";
 import React from "react";
+import { Provider } from "react-redux";
 import express from "express";
 import compression from "compression";
 import helmet from "helmet";
@@ -12,6 +13,7 @@ import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import config from "./config";
 import html from "./helpers/html";
+import createStore from "./redux/store";
 import routes from "./routes";
 
 const app = express();
@@ -57,15 +59,18 @@ app.get("*", (req, res) => {
   const extractor = new ChunkExtractor({ statsFile });
   const staticContext = {};
   const sheet = new ServerStyleSheet();
+  const store = createStore();
 
   try {
     const content = renderToString(
       <ChunkExtractorManager extractor={extractor}>
-        <StaticRouter location={req.path} context={staticContext}>
-          <StyleSheetManager sheet={sheet.instance}>
-            {renderRoutes(routes)}
-          </StyleSheetManager>
-        </StaticRouter>
+        <Provider store={store}>
+          <StaticRouter location={req.path} context={staticContext}>
+            <StyleSheetManager sheet={sheet.instance}>
+              {renderRoutes(routes)}
+            </StyleSheetManager>
+          </StaticRouter>
+        </Provider>
       </ChunkExtractorManager>
     );
 

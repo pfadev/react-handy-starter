@@ -1,14 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import { loadableReady } from "@loadable/component";
 
-const { hot } = module as any;
+import createStore from "./redux/store";
+
+// @ts-ignore
+const { hot } = module;
+const store = createStore();
 
 const render = (routes: Array<any>) =>
   (hot ? ReactDOM.render : ReactDOM.hydrate)(
-    <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+    </Provider>,
     document.getElementById("react-view")
   );
 
