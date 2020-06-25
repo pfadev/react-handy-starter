@@ -1,5 +1,5 @@
 export function increment() {
   return {
-    type: "INCREMENT",
+    type: "INCREMENT_ASYNC",
   };
 }

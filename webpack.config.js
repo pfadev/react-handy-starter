@@ -22,6 +22,10 @@ const loadPlugins = () => {
       // webpack-hot-middleware
       new webpack.HotModuleReplacementPlugin(),
     );
+  } else {
+    plugins.push(
+      new webpack.optimize.ModuleConcatenationPlugin(),
+    );
   }
 
   return plugins;
