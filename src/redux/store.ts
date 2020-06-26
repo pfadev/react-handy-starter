@@ -19,7 +19,7 @@ export default () => {
 
   const store = createStore(reducer, {}, enhancers);
 
-  sagaMiddleware.run(saga)
+  sagaMiddleware.run(saga);
 
   return store;
 };

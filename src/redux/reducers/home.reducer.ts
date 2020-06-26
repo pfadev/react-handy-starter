@@ -1,4 +1,3 @@
-// Export for unit testing
 export const initialState = {
   value: 0,
 };
