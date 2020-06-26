@@ -50,8 +50,8 @@ module.exports = {
         use: {
           loader: require.resolve("babel-loader"),
           options: {
-            presets: ["@babel/preset-env"],
             cacheDirectory: isDev,
+            presets: ["@babel/preset-env"],
           },
         },
       },
