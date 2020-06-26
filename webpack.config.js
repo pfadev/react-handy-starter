@@ -2,6 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 const LoadablePlugin = require("@loadable/webpack-plugin");
 const PnpWebpackPlugin = require("pnp-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 const isDev = mode === "development";
@@ -15,17 +18,19 @@ const loadPlugins = () => {
     new webpack.DefinePlugin({
       DEV: isDev,
     }),
+    new MiniCssExtractPlugin({
+      filename: isDev ? "[name].css" : "[name].[contenthash:8].css",
+      chunkFilename: isDev ? "[id].css" : "[id].[contenthash:8].css",
+    }),
   ];
 
   if (isDev) {
     plugins.push(
       // webpack-hot-middleware
-      new webpack.HotModuleReplacementPlugin(),
+      new webpack.HotModuleReplacementPlugin()
     );
   } else {
-    plugins.push(
-      new webpack.optimize.ModuleConcatenationPlugin(),
-    );
+    plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
   }
 
   return plugins;
@@ -51,11 +56,35 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { hmr: isDev, reloadAll: true },
+          },
+          { loader: "css", options: { importLoaders: 1 } },
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: "css", options: { importLoaders: 3 } },
+          {
+            loader: "less",
+            options: { lessOptions: { javascriptEnabled: true } },
+          },
+        ],
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
     ],
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   output: {
     filename: isDev ? "[name].js" : "[name].[hash:8].js",
