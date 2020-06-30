@@ -12,7 +12,7 @@ import { renderRoutes } from "react-router-config";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import config from "./config";
-import html from "./helpers/html";
+import html from "./helpers/html.helper";
 import createStore from "./redux/store";
 import routes from "./routes";
 
