@@ -23,5 +23,10 @@
       { "libraryName": "antd", "libraryDirectory": "es", "style": true }
     ],
     ["styled-components"]
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": ["babel-plugin-transform-remove-console"]
+    }
+  }
 }
