@@ -1,33 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import Helmet from "react-helmet";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Button, Table } from "antd";
+import { Button } from "antd";
 
 import { homeAction, userAction } from "../../redux/actions";
+import { UserTable } from "../../components";
 import StyleWrapper from "./home.style";
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Username",
-    dataIndex: "username",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-  },
-  {
-    title: "Phone",
-    dataIndex: "phone",
-  },
-  {
-    title: "Website",
-    dataIndex: "website",
-  },
-];
 
 const Home = () => {
   const dipatch = useDispatch();
@@ -37,9 +15,11 @@ const Home = () => {
 
   const handleIncrement = () => dipatch(homeAction.increment());
 
-  const handleLoadAllUsers = () => dipatch(userAction.loadAll());
-
   const handleLoadUser = () => dipatch(userAction.load(1));
+
+  useEffect(() => {
+    dipatch(userAction.loadAll());
+  }, []);
 
   console.log("user", user);
 
@@ -51,19 +31,7 @@ const Home = () => {
       value:
       {value}
       <br />
-      <Button
-        disabled={users.loading}
-        loading={users.loading}
-        onClick={handleLoadAllUsers}
-      >
-        load all users
-      </Button>
-      <Table
-        columns={columns}
-        dataSource={users.data || []}
-        loading={users.loading}
-        rowKey="id"
-      />
+      <UserTable users={users} />
       <br />
       <button type="button" onClick={handleLoadUser}>
         load user
