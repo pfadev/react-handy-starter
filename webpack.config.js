@@ -5,6 +5,8 @@ const PnpWebpackPlugin = require("pnp-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const mode = process.env.NODE_ENV || "development";
 const isDev = mode === "development";
@@ -30,7 +32,13 @@ const loadPlugins = () => {
       new webpack.HotModuleReplacementPlugin()
     );
   } else {
-    plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+    plugins.push(
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode:
+          process.env.NODE_ENV === "analyze" ? "server" : "disabled",
+      })
+    );
   }
 
   return plugins;
@@ -41,7 +49,7 @@ module.exports = {
   entry: isDev
     ? ["webpack-hot-middleware/client?reload=true", "./src/client.tsx"]
     : ["./src/client.tsx"],
-  mode,
+  mode: isDev ? "development" : "production",
   module: {
     rules: [
       {
