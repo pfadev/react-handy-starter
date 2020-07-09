@@ -9,7 +9,8 @@ import createStore from "./redux/store";
 
 // @ts-ignore
 const { hot } = module;
-const store = createStore();
+// @ts-ignore
+const store = createStore(window.INITIAL_STATE);
 
 const render = (routes: Array<any>) =>
   (hot ? ReactDOM.render : ReactDOM.hydrate)(

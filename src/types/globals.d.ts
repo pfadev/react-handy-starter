@@ -5,3 +5,7 @@ declare namespace NodeJS {
     DEV: boolean;
   }
 }
+
+interface Window {
+  INITIAL_STATE: Record<string, unknown>;
+}
