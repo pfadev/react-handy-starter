@@ -8,12 +8,10 @@ import { loadableReady } from "@loadable/component";
 import createStore from "./redux/store";
 
 // @ts-ignore
-const { hot } = module;
-// @ts-ignore
 const store = createStore(window.INITIAL_STATE);
 
 const render = (routes: Array<any>) =>
-  (hot ? ReactDOM.render : ReactDOM.hydrate)(
+  ((module as any).hot ? ReactDOM.render : ReactDOM.hydrate)(
     <Provider store={store}>
       <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
     </Provider>,
@@ -22,8 +20,8 @@ const render = (routes: Array<any>) =>
 
 loadableReady(() => render(require("./routes").default));
 
-if (hot) {
-  hot.accept("./routes", () => {
+if ((module as any).hot) {
+  (module as any).hot.accept("./routes", () => {
     try {
       render(require("./routes").default);
     } catch (error) {
