@@ -1,3 +1,5 @@
+import { minify } from "html-minifier";
+
 export default (content: string, extractor: Record<string, any>): string => {
   const html = `
     <!doctype html>
@@ -18,5 +20,14 @@ export default (content: string, extractor: Record<string, any>): string => {
     </html>
   `;
 
-  return html;
+  const minifyConfig = {
+    collapseWhitespace: true,
+    minifyCSS: true,
+    minifyJS: true,
+    minifyURLs: true,
+    removeComments: true,
+    trimCustomFragments: true,
+  };
+
+  return DEV ? html : minify(html, minifyConfig);
 };
