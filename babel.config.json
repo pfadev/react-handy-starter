@@ -22,7 +22,8 @@
       "import",
       { "libraryName": "antd", "libraryDirectory": "es", "style": true }
     ],
-    ["styled-components"]
+    ["styled-components"],
+    ["@babel/plugin-transform-runtime"]
   ],
   "env": {
     "production": {
