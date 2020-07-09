@@ -12,7 +12,7 @@ import { renderRoutes } from "react-router-config";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import config from "./config";
-import html from "./helpers/html.helper";
+import htmlHelper from "./helpers/html.helper";
 import createStore from "./redux/store";
 import routes from "./routes";
 
@@ -74,7 +74,9 @@ app.get("*", (req, res) => {
       </ChunkExtractorManager>
     );
 
-    res.send(html(content, extractor));
+    const initialState = store.getState();
+
+    res.send(htmlHelper(content, extractor, initialState));
   } catch (error) {
     console.error(error);
   } finally {

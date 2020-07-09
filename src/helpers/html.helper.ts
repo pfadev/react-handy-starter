@@ -1,6 +1,11 @@
 import { minify } from "html-minifier";
+import serialize from "serialize-javascript";
 
-export default (content: string, extractor: Record<string, any>): string => {
+export default (
+  content: string,
+  extractor: Record<string, any>,
+  initialState: Record<string, unknown>
+): string => {
   const html = `
     <!doctype html>
     <html>
@@ -14,6 +19,14 @@ export default (content: string, extractor: Record<string, any>): string => {
 
       <body>
         <div id="react-view">${content}</div>
+
+        <!-- Store the initial state into window -->
+        <script>
+          // Use serialize-javascript for mitigating XSS attacks. See the following security issues:
+          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+          window.__INITIAL_STATE__=${serialize(initialState)};
+        </script>
+
 
         ${extractor.getScriptTags()}
       </body>
