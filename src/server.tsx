@@ -8,10 +8,11 @@ import hpp from "hpp";
 import { renderToString } from "react-dom/server";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { StaticRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
+import { matchRoutes, renderRoutes } from "react-router-config";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import config from "./config";
+import dispatchHelper from "./helpers/dispatch.helper";
 import htmlHelper from "./helpers/html.helper";
 import createStore from "./redux/store";
 import routes from "./routes";
@@ -59,29 +60,52 @@ app.get("*", (req, res) => {
   const extractor = new ChunkExtractor({ statsFile });
   const staticContext = {};
   const sheet = new ServerStyleSheet();
-  const store = createStore();
+  const store = createStore({});
 
-  try {
-    const content = renderToString(
-      <ChunkExtractorManager extractor={extractor}>
-        <Provider store={store}>
-          <StaticRouter location={req.path} context={staticContext}>
-            <StyleSheetManager sheet={sheet.instance}>
-              {renderRoutes(routes)}
-            </StyleSheetManager>
-          </StaticRouter>
-        </Provider>
-      </ChunkExtractorManager>
-    );
+  const loadData = () => {
+    const promises = matchRoutes(routes, req.path)
+      .map(({ route, match }: Record<string, any>) =>
+        route.loadData
+          ? route.loadData({
+              params: match.params,
+              query: req.query,
+              getState: store.getState,
+            })
+          : null
+      )
+      .filter((item: any) => item !== null)
+      // @ts-ignore
+      .flat()
+      .map((item) => dispatchHelper(store.dispatch, item));
 
-    const initialState = store.getState();
+    return Promise.all(promises);
+  };
 
-    res.send(htmlHelper(content, extractor, initialState));
-  } catch (error) {
-    console.error(error);
-  } finally {
-    sheet.seal();
-  }
+  (async () => {
+    try {
+      await loadData();
+
+      const content = renderToString(
+        <ChunkExtractorManager extractor={extractor}>
+          <Provider store={store}>
+            <StaticRouter location={req.path} context={staticContext}>
+              <StyleSheetManager sheet={sheet.instance}>
+                {renderRoutes(routes)}
+              </StyleSheetManager>
+            </StaticRouter>
+          </Provider>
+        </ChunkExtractorManager>
+      );
+
+      const initialState = store.getState();
+
+      res.send(htmlHelper(content, extractor, initialState));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      sheet.seal();
+    }
+  })();
 });
 
 // @ts-ignore

@@ -10,14 +10,14 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-export default () => {
+export default (initialState) => {
   const sagaMiddleware = createSagaMiddleware();
 
   const middlewares = [sagaMiddleware];
 
   const enhancers = composeEnhancers(applyMiddleware(...middlewares));
 
-  const store = createStore(reducer, {}, enhancers);
+  const store = createStore(reducer, initialState || {}, enhancers);
 
   sagaMiddleware.run(saga);
 
